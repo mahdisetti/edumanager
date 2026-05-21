@@ -1,3 +1,86 @@
-<div class="page-head"><div><h1>Bookings</h1><p>Manage reservations and service orders.</p></div><button class="btn primary" onclick="openModal('bookingModal')">＋ New Booking</button></div>
-<section class="panel table-panel"><table><thead><tr><th>Student</th><th>Service</th><th>Date</th><th>Status</th><th>Comment</th><th>Actions</th></tr></thead><tbody><?php foreach($bookings as $b):?><tr><td><?=htmlspecialchars($b['student_name'])?></td><td><?=htmlspecialchars($b['service_name'])?></td><td><?=htmlspecialchars($b['booking_date'])?></td><td><form method="post" action="index.php?route=bookings.status"><input type="hidden" name="id" value="<?=$b['id']?>"><select name="status" onchange="this.form.submit()"><option <?=$b['status']=='Pending'?'selected':''?>>Pending</option><option <?=$b['status']=='Confirmed'?'selected':''?>>Confirmed</option><option <?=$b['status']=='Cancelled'?'selected':''?>>Cancelled</option><option <?=$b['status']=='Done'?'selected':''?>>Done</option></select></form></td><td><?=htmlspecialchars($b['comment'])?></td><td><a class="link red" href="index.php?route=bookings.delete&id=<?=$b['id']?>" onclick="return confirm('Delete booking?')">Delete</a></td></tr><?php endforeach;?></tbody></table></section>
-<div class="modal" id="bookingModal"><form class="modal-card" method="post" action="index.php?route=bookings.store"><h2>New Booking</h2><select name="student_id" required><?php foreach($students as $s):?><option value="<?=$s['id']?>"><?=htmlspecialchars($s['first_name'].' '.$s['last_name'])?></option><?php endforeach;?></select><select name="service_id" required><?php foreach($services as $s):?><option value="<?=$s['id']?>"><?=htmlspecialchars($s['name'])?></option><?php endforeach;?></select><input type="date" name="booking_date" required><select name="status"><option>Pending</option><option>Confirmed</option></select><textarea name="comment" placeholder="Comment"></textarea><button class="btn primary">Save</button></form></div>
+<!-- Page Header -->
+<div class="page-head">
+    <div>
+        <h1>Bookings</h1>
+        <p>Manage reservations and service orders.</p>
+    </div>
+    <button class="btn primary" onclick="openModal('bookingModal')">＋ New Booking</button>
+</div>
+
+<!-- Bookings Table -->
+<section class="panel table-panel">
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Comment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($bookings as $b): ?>
+                <tr>
+                    <td><?= htmlspecialchars($b['student_name']) ?></td>
+                    <td><?= htmlspecialchars($b['service_name']) ?></td>
+                    <td><?= htmlspecialchars($b['booking_date']) ?></td>
+                    <td>
+                        <form method="post" action="index.php?route=bookings.status">
+                            <input type="hidden" name="id" value="<?= $b['id'] ?>">
+                            <select name="status" onchange="this.form.submit()">
+                                <option <?= $b['status'] === 'Pending'   ? 'selected' : '' ?>>Pending</option>
+                                <option <?= $b['status'] === 'Confirmed' ? 'selected' : '' ?>>Confirmed</option>
+                                <option <?= $b['status'] === 'Cancelled' ? 'selected' : '' ?>>Cancelled</option>
+                                <option <?= $b['status'] === 'Done'      ? 'selected' : '' ?>>Done</option>
+                            </select>
+                        </form>
+                    </td>
+                    <td><?= htmlspecialchars($b['comment']) ?></td>
+                    <td>
+                        <a class="link red"
+                           href="index.php?route=bookings.delete&id=<?= $b['id'] ?>"
+                           onclick="return confirm('Delete booking?')">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>
+
+<!-- New Booking Modal -->
+<div class="modal" id="bookingModal">
+    <form class="modal-card" method="post" action="index.php?route=bookings.store">
+        <h2>New Booking</h2>
+
+        <select name="student_id" required>
+            <?php foreach ($students as $s): ?>
+                <option value="<?= $s['id'] ?>">
+                    <?= htmlspecialchars($s['first_name'] . ' ' . $s['last_name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <select name="service_id" required>
+            <?php foreach ($services as $s): ?>
+                <option value="<?= $s['id'] ?>">
+                    <?= htmlspecialchars($s['name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <input type="date" name="booking_date" required>
+
+        <select name="status">
+            <option>Pending</option>
+            <option>Confirmed</option>
+        </select>
+
+        <textarea name="comment" placeholder="Comment"></textarea>
+
+        <button class="btn primary">Save</button>
+    </form>
+</div>
