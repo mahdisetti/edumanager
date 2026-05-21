@@ -6,7 +6,7 @@
   <div class="stat"><span class="icon">💵</span><small>Revenue (MTD)</small><h2>$1.4M</h2><b class="green">+28%</b></div>
 </div>
 <div class="grid-two">
-  <section class="panel"><div class="panel-head"><div><h2>Registration Trends</h2><p>New enrollments over the last 6 months</p></div><select><option>Last 6 Months</option></select></div><canvas id="trendChart" height="260"></canvas></section>
+  <section class="panel"><div class="panel-head"><div><h2>Registration Trends</h2><p>New enrollments over the last six months</p></div><select><option>Last 6 Months</option></select></div><canvas id="trendChart" height="260"></canvas></section>
   <section class="panel"><div class="panel-head"><h2>Recent Activity</h2><a>See All</a></div><?php foreach($activities as $a):?><div class="activity"><span>✓</span><div><b><?=htmlspecialchars($a['type'])?></b><p><?=htmlspecialchars($a['student_name'].' - '.$a['content'])?></p><small><?=htmlspecialchars($a['created_at'])?></small></div></div><?php endforeach;?></section>
 </div>
 <section class="panel table-panel"><div class="panel-head"><h2>Popular Services</h2><div><button onclick="exportTable('popularTable')" class="btn light">Export CSV</button><a class="btn primary" href="index.php?route=services">Add New Service</a></div></div>
