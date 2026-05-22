@@ -1,3 +1,74 @@
-<div class="page-head"><div><h1>Presence</h1><p>Track student attendance, absences, and delays.</p></div><button class="btn primary" onclick="openModal('presenceModal')">＋ Mark Presence</button></div>
-<section class="panel table-panel"><table><thead><tr><th>Student</th><th>Date</th><th>Status</th><th>Note</th><th>Actions</th></tr></thead><tbody><?php foreach($presences as $p):?><tr><td><?=htmlspecialchars($p['student_name'])?></td><td><?=htmlspecialchars($p['presence_date'])?></td><td><span class="badge <?=strtolower($p['status'])?>"><?=htmlspecialchars($p['status'])?></span></td><td><?=htmlspecialchars($p['note'])?></td><td><a class="link red" onclick="return confirm('Delete?')" href="index.php?route=presence.delete&id=<?=$p['id']?>">Delete</a></td></tr><?php endforeach;?></tbody></table></section>
-<div class="modal" id="presenceModal"><form class="modal-card" method="post" action="index.php?route=presence.store"><h2>Mark Presence</h2><select name="student_id" required><?php foreach($students as $s):?><option value="<?=$s['id']?>"><?=htmlspecialchars($s['first_name'].' '.$s['last_name'])?></option><?php endforeach;?></select><input type="date" name="presence_date" required><select name="status"><option>Present</option><option>Absent</option><option>Late</option></select><textarea name="note" placeholder="Note"></textarea><button class="btn primary">Save</button></form></div>
+<div class="page-head">
+    <div>
+        <h1>Presence</h1>
+        <p>Track student attendance, absences, and delays.</p>
+    </div>
+
+    <button class="btn primary" onclick="openModal('presenceModal')">
+        ＋ Mark Presence
+    </button>
+</div>
+
+<section class="panel table-panel">
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Note</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php foreach ($presences as $p): ?>
+                <tr>
+                    <td><?= htmlspecialchars($p['student_name']) ?></td>
+                    <td><?= htmlspecialchars($p['presence_date']) ?></td>
+                    <td>
+                        <span class="badge <?= strtolower($p['status']) ?>">
+                            <?= htmlspecialchars($p['status']) ?>
+                        </span>
+                    </td>
+                    <td><?= htmlspecialchars($p['note']) ?></td>
+                    <td>
+                        <a 
+                            class="link red"
+                            onclick="return confirm('Delete?')"
+                            href="index.php?route=presence.delete&id=<?= $p['id'] ?>"
+                        >
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>
+
+<div class="modal" id="presenceModal">
+    <form class="modal-card" method="post" action="index.php?route=presence.store">
+        <h2>Mark Presence</h2>
+
+        <select name="student_id" required>
+            <?php foreach ($students as $s): ?>
+                <option value="<?= $s['id'] ?>">
+                    <?= htmlspecialchars($s['first_name'] . ' ' . $s['last_name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <input type="date" name="presence_date" required>
+
+        <select name="status">
+            <option>Present</option>
+            <option>Absent</option>
+            <option>Late</option>
+        </select>
+
+        <textarea name="note" placeholder="Note"></textarea>
+
+        <button class="btn primary">Save</button>
+    </form>
+</div>
