@@ -75,7 +75,7 @@
         <input type="date" name="booking_date" required>
 
         <select name="status">
-            <option>Pending</option>
+            <option>Pending </option>
             <option>Confirmed</option>
         </select>
 
